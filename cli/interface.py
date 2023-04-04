@@ -47,14 +47,14 @@ class Interface(cmd.Cmd):
         print('\n')
         print('Commands:')
         print('\n')
-        print('help \t\t\t\t Help for given commands')
-        print('exit \t\t\t\t Exit application')
+        print('Type: "help" \t\t\t\t to get help with commands')
+        print('Type: "exit" \t\t\t\t to exit application')
         print('\n')
-        print('open <port> \t\t\t Open peer listening port Eg: open 5000')
+        print('Type: "open <your port>" \t\t\t to open peer listening port Eg: open 5000')
         print(
-            'connect <port> <target_port> \t '
-            'Connect a peer to another Eg: connect 5000 5001')
+            'Type: "connect <your port> <your_target_port>" \t '
+            'to connect a peer to another Eg: connect 5000 6000')
         print('\n')
-        print('mine <port> <data> \t\t Mine a new block Eg: mine hello')
-        print('show <port> \t\t\t Show blockchain of peer Eg: show 5000')
+        print('Type: "mine <port> <data>" \t\t to mine a new block Eg: mine 5000 hello')
+        print('Type: "show <port> \t\t\t" to show a blockchain of peer/s Eg: show 5000')
         print('\n')

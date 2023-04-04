@@ -2,47 +2,47 @@ import time
 from hashlib import sha256
 
 
-class Block(object):
+class MyBlock(obj):
 
     def __init__(
-            self, index=0, nonce=0, previous_hash=None, data=None, hash=None,
+            self, Id=0, nonce=0, LastHash=None, Record=None, CurrentHash=None,
             timestamp=None):
-        self.index = index
-        self.previous_hash = previous_hash or '0'
+        self.Id = Id
+        self.LastHash = LastHash or '0'
         self.timestamp = timestamp or time.time()
-        self.data = data or ''
+        self.Record = Record or ''
         self.nonce = nonce
-        self.hash = hash or self._calculate_hash()
+        self.CurrentHash = CurrentHash or self.HashCompute()
 
     def to_dict(self):
         return {
-            'index': self.index,
-            'previous_hash': self.previous_hash,
+            'Id': self.Id,
+            'LastHash': self.LastHash,
             'timestamp': self.timestamp,
-            'data': self.data,
+            'Record': self.Record,
             'nonce': self.nonce,
-            'hash': self.hash
+            'CurrentHash': self.CurrentHash
         }
 
     @staticmethod
-    def genesis():
-        return Block(
+    def gen():
+        return MyBlock(
             0, 0, '0', 'Welcome to blockchain cli!',
             '8724f78170aee146b794ca6ad451d23c254717727e18e2b9643b81d5666aa908',
             1520572079.336289)
 
-    def _calculate_hash(self):
+    def HashCompute(self):
         original_str = ''.join([
-            str(self.index), self.previous_hash, str(self.timestamp), self.data,
+            str(self.Id), self.LastHash, str(self.timestamp), self.Record,
             str(self.nonce)])
         return sha256(original_str.encode('utf-8')).hexdigest()
 
     def __eq__(self, other):
-        if (self.index == other.index
-                and self.previous_hash == other.previous_hash
+        if (self.Id == other.Id
+                and self.LastHash == other.LastHash
                 and self.timestamp == other.timestamp
-                and self.data == other.data
+                and self.Record == other.Record
                 and self.nonce == other.nonce
-                and self.hash == other.hash):
+                and self.CurrentHash == other.CurrentHash):
             return True
         return False

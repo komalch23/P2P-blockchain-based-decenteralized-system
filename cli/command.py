@@ -23,12 +23,12 @@ class Command(object):
         if result == 'OK':
             print('Peer {host}:{port} connected to {target_host}:{target_port}')
         else:
-            print('Connect failed')
+            print('Connection failed')
         return result
 
-    def mine(self, host, port, data):
+    def mine(self, host, port, Record):
         print('Mining...')
-        message = {'type': 'MINE', 'data': data}
+        message = {'type': 'MINE', 'Record': Record}
         result = self._unicast(host, port, message)
         if result == 'OK':
             print('A new block was mined')
@@ -42,31 +42,25 @@ class Command(object):
         if result:
             chain = json.loads(result)
             for block in chain:
-                index = block['index']
-                prev_hash = block['previous_hash']
+                Id = block['Id']
+                LastHash = block['LastHash']
                 timestamp = block['timestamp']
-                data = block['data']
+                Record = block['Record']
                 nonce = block['nonce']
-                hash = block['hash']
+                CurrentHash = block['CurrentHash']
                 print('\n')
-                print('# Block {index}')
-                print('+-----------+-------------------------------------------'
-                      '---------------------+')
-                print('| prev_hash |{prev_hash: >{64}}|')
-                print('|-----------|-------------------------------------------'
-                      '---------------------|')
+                print('# Block {Id}')
+                print('+-----------+-------------------------------------------')
+                print('| LastHash  |{LastHash: >{64}}|')
+                print('|-----------|-------------------------------------------')
                 print('| timestamp |{timestamp: >{64}}|')
-                print('|-----------|-------------------------------------------'
-                      '---------------------|')
-                print('|    data   |{data[:64]: >{64}}|')
-                print('|-----------|-------------------------------------------'
-                      '---------------------|')
+                print('|-----------|-------------------------------------------')
+                print('|    Record |{Record[:64]: >{64}}|')
+                print('|-----------|-------------------------------------------')
                 print('|   nonce   |{nonce: >{64}}|')
-                print('|-----------|-------------------------------------------'
-                      '---------------------|')
-                print('|    hash   |{hash: >{64}}|')
-                print('+-----------+-------------------------------------------'
-                      '---------------------+')
+                print('|-----------|-------------------------------------------')
+                print('|CurrentHash|{CurrentHash: >{64}}|')
+                print('+-----------+-------------------------------------------')
         else:
             print('Empty blockchain')
         return result

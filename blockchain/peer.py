@@ -3,7 +3,7 @@ import socket
 import SocketServer
 import multiprocessing
 
-from blockchain.chain import Chain
+from blockchain.Chain import MyChain
 
 
 class _PeerRequestHandler(socketserver.BaseRequestHandler):
@@ -36,7 +36,7 @@ class Peer(object):
         self.host = host
         self.port = port
         self._peers = set()
-        self._chain = Chain()
+        self._chain = MyChain()
 
     def start(self):
         server = socketserver.ThreadingTCPServer(
@@ -60,8 +60,8 @@ class Peer(object):
         self._chain.mine(data)
         self._broadcast_chain()
 
-    def replace_chain(self, chain):
-        self._chain.replace_chain(chain)
+    def replace_chain(self, Chain):
+        self._chain.replace_chain(Chain)
 
     @property
     def chain(self):
